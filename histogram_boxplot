@@ -1,0 +1,31 @@
+# While doing univariate analysis of numerical variables we want to study their central tendency and dispersion.
+# Let us write a function that will help us create boxplot and histogram for any input numerical variable.
+# This function takes the numerical column as the input and returns the boxplots and histograms for the variable.
+# Let us see if this help us write faster and cleaner code.
+
+
+def histogram_boxplot(feature, figsize=(15, 10), bins=None):
+    """Boxplot and histogram combined
+    feature: 1-d feature array
+    figsize: size of fig (default (9,8))
+    bins: number of bins (default None / auto)
+    """
+    sns.set(font_scale=2)  # setting the font scale for seaborn
+    f2, (ax_box2, ax_hist2) = plt.subplots(
+        nrows=2,  # Number of rows of the subplot grid=2
+        sharex=True,  # x-axis will be shared among all subplots
+        gridspec_kw={"height_ratios": (0.25, 0.75)},
+        figsize=figsize,
+    )  # creating the 2 subplots
+    sns.boxplot(
+        feature, ax=ax_box2, showmeans=True, color="red"
+    )  # boxplot will be created and a star will indicate the mean value of the column
+    sns.distplot(feature, kde=F, ax=ax_hist2, bins=bins) if bins else sns.distplot(
+        feature, kde=False, ax=ax_hist2
+    )  # For histogram
+    ax_hist2.axvline(
+        feature.mean(), color="g", linestyle="--"
+    )  # Add mean to the histogram
+    ax_hist2.axvline(
+        feature.median(), color="black", linestyle="-"
+    )  # Add median to the histogram
