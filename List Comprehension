@@ -1,0 +1,3 @@
+term = 'Machine Learning'
+vowels_list = [i for i in term if i in ['a','e','i','o','u']]
+print(vowels_list)
