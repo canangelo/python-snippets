@@ -1,0 +1,13 @@
+from scipy.stats import norm
+mu = ms['LogReturn'].mean()
+sigma = ms['LogReturn'].std(ddof=1)
+
+# Plot a histogram to show the distribution of log return of Microsoft's stock. 
+
+density = pd.DataFrame()
+density['x'] = np.arange(ms['LogReturn'].min()-0.01, ms['LogReturn'].max()+0.01, 0.001)
+density['pdf'] = norm.pdf(density['x'], mu, sigma)
+
+sns.histplot(ms['LogReturn'], kde = True, stat = 'density')
+plt.plot(density['x'], density['pdf'], color='red')
+plt.show()
